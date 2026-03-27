@@ -65,14 +65,11 @@ export const metadata: Metadata = rootMetadata
 // ─── Viewport (Next.js 14+ splits this from Metadata) ────────────────────────
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)',  color: '#08090D' },
-    { media: '(prefers-color-scheme: light)', color: '#F4F6FB' },
-  ],
+  themeColor:   '#08090D',
   width:        'device-width',
   initialScale: 1,
   maximumScale: 5,
-  colorScheme:  'dark light',
+  colorScheme:  'dark',
 }
 
 // ─── Global JSON-LD (generated once at build time) ───────────────────────────
@@ -89,17 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      /**
-       * data-theme="dark" — default theme per CLAUDE.md §3 "Dark Mode Default".
-       *
-       * To add a toggle: build a ThemeProvider client component (Phase 3 Navbar)
-       * that reads localStorage('theme') on mount, falls back to
-       * prefers-color-scheme, then sets document.documentElement.dataset.theme.
-       * suppressHydrationWarning prevents React from complaining when the
-       * client-side theme differs from the server render.
-       */
       data-theme="dark"
-      suppressHydrationWarning
       className={[
         dmSerifDisplay.variable,   // --font-dm-serif-display
         inter.variable,            // --font-inter

@@ -27,18 +27,13 @@ const config: Config = {
       // Primary source of truth is @theme inline in globals.css.
       // These extend Tailwind's default palette as static fallbacks.
       colors: {
-        'bg-base':          '#08090D',
-        'bg-surface':       '#0F1117',
-        'bg-elevated':      '#161820',
-        'accent-red':       '#E5181E',
-        'accent-red-glow':  'rgba(229,24,30,0.25)',
-        'accent-blue':      '#1A56DB',
-        'accent-blue-glow': 'rgba(26,86,219,0.2)',
-        'text-primary':     '#F0F2F7',
-        'text-muted':       '#6B7280',
-        'light-base':       '#F4F6FB',
-        'light-surface':    '#FFFFFF',
-        'light-text':       '#111827',
+        'bg-base':         '#08090D',
+        'bg-surface':      '#0F1117',
+        'bg-elevated':     '#161820',
+        'accent-red':      '#EF4136',
+        'accent-red-glow': 'rgba(239,65,54,0.25)',
+        'text-primary':    '#F0F2F7',
+        'text-muted':      '#6B7280',
       },
 
       // ── Font families ─────────────────────────────────────────────
@@ -51,9 +46,8 @@ const config: Config = {
 
       // ── Box shadows ───────────────────────────────────────────────
       boxShadow: {
-        'glow-red':    '0 0 24px rgba(229, 24, 30, 0.35)',
-        'glow-red-lg': '0 0 48px rgba(229, 24, 30, 0.50)',
-        'glow-blue':   '0 0 24px rgba(26, 86, 219, 0.35)',
+        'glow-red':    '0 0 24px rgba(239, 65, 54, 0.35)',
+        'glow-red-lg': '0 0 48px rgba(239, 65, 54, 0.50)',
         card:          '0 8px 32px rgba(0, 0, 0, 0.40)',
         'card-lg':     '0 24px 64px rgba(0, 0, 0, 0.50)',
       },
@@ -67,8 +61,8 @@ const config: Config = {
         },
         // Slow red glow loop for logo / accent elements
         'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 12px 2px rgba(229,24,30,0.25)' },
-          '50%':       { boxShadow: '0 0 32px 8px rgba(229,24,30,0.50)' },
+          '0%, 100%': { boxShadow: '0 0 12px 2px rgba(239,65,54,0.25)' },
+          '50%':       { boxShadow: '0 0 32px 8px rgba(239,65,54,0.50)' },
         },
         'gradient-morph': {
           '0%, 100%': { backgroundPosition: '0% 50%' },

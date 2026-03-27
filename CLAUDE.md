@@ -73,20 +73,13 @@ Think: deep space + broadcast signal + British precision.
 --color-bg-base:      #08090D;   /* near-black — primary background */
 --color-bg-surface:   #0F1117;   /* card/surface layer */
 --color-bg-elevated:  #161820;   /* navbar, modals */
---color-accent-red:   #E5181E;   /* primary CTA, highlights — "signal red" */
---color-accent-red-glow: rgba(229,24,30,0.25);
+--color-accent-red:   #EF4136;   /* primary CTA, highlights — "signal red" */
+--color-accent-red-glow: rgba(239, 65, 54,0.25);
 --color-text-primary: #F0F2F7;   /* body copy */
 --color-text-muted:   #6B7280;   /* secondary text */
 --color-border:       rgba(255,255,255,0.08); /* glassmorphism borders */
 
-/* Light Mode */
---color-bg-base:      #F4F6FB;
---color-bg-surface:   #FFFFFF;
---color-accent-blue:  #1A56DB;   /* primary CTA in light mode */
---color-accent-blue-glow: rgba(26,86,219,0.2);
---color-text-primary: #111827;
---color-border:       rgba(0,0,0,0.08);
-```
+
 
 ### Typography Scale
 ```
@@ -519,7 +512,7 @@ Phase 5 — MONEY PAGES (/iptv-uk-subscription/, etc.)
 ## 12. FUTURE INTEGRATIONS (QUEUED)
 
 - [ ] Kling 3.0 scroll animation videos (post-redesign stabilisation)
-- [ ] Dark/Light mode toggle (red accent dark ↔ blue accent light)
+- [ ] Dark mode only (brand red #EF4136)
 - [ ] A/B test on Hero CTA copy ("Get IPTV UK" vs "Start Watching Today")
 - [ ] Blog auto-generation pipeline
 - [ ] Heatmap integration (Hotjar or Microsoft Clarity)
