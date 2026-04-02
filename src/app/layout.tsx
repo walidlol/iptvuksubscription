@@ -23,7 +23,7 @@ const SITE_URL = "https://iptvuksubscription.uk";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0D0F18",
+  themeColor: "#08090c",
 };
 
 export const metadata: Metadata = {
