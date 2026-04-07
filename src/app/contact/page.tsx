@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MessageCircle, Mail, Clock, Zap } from "lucide-react";
+import { Mail, Clock } from "lucide-react";
 import CinematicShapes from "@/components/ui/CinematicShapes";
+import WhatsAppContactCard from "./WhatsAppContactCard";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 const SITE_URL = "https://iptvuksubscription.uk";
-const WHATSAPP_URL = "https://wa.me/212762151824?text=Hi%2C+I%27d+like+to+enquire+about+IPTV+UK+Subscription.";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -28,6 +29,20 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-bg-primary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              buildBreadcrumbSchema([
+                { name: "Home", url: SITE_URL },
+                { name: "Contact", url: `${SITE_URL}/contact` },
+              ]),
+            ],
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="bg-cinematic relative overflow-hidden pt-32 pb-14">
         <CinematicShapes subtle />
@@ -50,39 +65,8 @@ export default function ContactPage() {
       <section className="bg-bg-primary py-14">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* WhatsApp card */}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group glass p-8 flex flex-col gap-5 hover:bg-[rgba(255,255,255,0.09)] transition-colors"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-[rgba(37,211,102,0.12)] border border-[rgba(37,211,102,0.25)] flex items-center justify-center shrink-0">
-                  <MessageCircle size={22} className="text-[#25D366]" />
-                </div>
-                <div>
-                  <h2 className="font-heading text-xl tracking-wider text-text-primary uppercase">WhatsApp</h2>
-                  <p className="text-sm text-text-muted">+212 762 151 824</p>
-                </div>
-              </div>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                The fastest way to reach us. Message us for free trials, subscriptions, setup help, or any question. Our team typically responds within 5 minutes.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <span className="flex items-center gap-1.5 text-xs text-text-muted">
-                  <Clock size={12} /> Available 24/7
-                </span>
-                <span className="flex items-center gap-1.5 text-xs text-text-muted">
-                  <Zap size={12} /> Response in ~5 mins
-                </span>
-              </div>
-              <div className="mt-auto pt-2">
-                <span className="inline-flex items-center gap-2 text-sm font-medium text-[#25D366] group-hover:gap-3 transition-all">
-                  Open WhatsApp <span aria-hidden>→</span>
-                </span>
-              </div>
-            </a>
+            {/* WhatsApp card — client component with phone gate */}
+            <WhatsAppContactCard />
 
             {/* Email card */}
             <div className="glass p-8 flex flex-col gap-5">

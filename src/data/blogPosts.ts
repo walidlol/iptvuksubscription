@@ -47,7 +47,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       {
         heading: "Our IPTV UK Subscription Plans for 2026",
         content:
-          "We offer three flexible plans to suit every household. The Monthly Plan at £9.99/mo is perfect for trying the service or for single users who prefer flexibility. It includes 30,000+ live channels, Full HD and 4K streaming, all UK sports channels, and 24/7 support on one device. The Annual Plan at £59/yr (equivalent to £4.92/mo — a saving of 51%) is our most popular option. It adds the full 100,000+ VOD library, a second device connection, and priority support. The Family Plan at £129.99/yr supports four simultaneous device connections, provides VIP support, and is ideal for households where everyone watches different content.",
+          "We offer three flexible plans to suit every household. All plans include 30,000+ live channels, Full HD and 4K streaming, all UK sports channels, and our full 100,000+ VOD library. The Monthly Plan at £9.99/mo is perfect for trying the service with 1 device and 24/7 support. The Annual Plan at £59/yr (equivalent to £4.92/mo — a saving of 51%) is our most popular option with 1 device and priority support. The Family Plan at £129.99/yr supports four simultaneous device connections with VIP support, ideal for households where everyone watches different content.",
       },
       {
         heading: "Top Channels Included in 2026",

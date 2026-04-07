@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BookOpen } from "lucide-react";
-import SetupTabs, { DEVICES } from "./SetupTabs";
+import SetupTabs from "./SetupTabs";
+import { DEVICES } from "./setupData";
 import CinematicShapes from "@/components/ui/CinematicShapes";
 import { buildHowToSchema } from "@/lib/schema";
 

@@ -40,7 +40,9 @@ const FOOTER_COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--bg-surface)] border-t border-[rgba(255,255,255,0.08)]">
+    <footer className="bg-[var(--bg-surface)] border-t border-[rgba(255,255,255,0.08)] relative">
+      {/* Teal glow along top edge */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(24,57,73,0.5)] to-transparent" />
       <div className="mx-auto max-w-7xl px-6 py-14 lg:py-16">
 
         {/* Top: Brand + Columns */}
@@ -58,9 +60,14 @@ export default function Footer() {
                   UK
                 </span>
               </div>
-              <span className="font-heading text-lg tracking-widest text-[#F2F2F7]">
-                IPTV UK
-              </span>
+              <div className="flex flex-col leading-none">
+                <span className="font-heading text-lg tracking-widest text-[#F2F2F7]">
+                  IPTV UK
+                </span>
+                <span className="text-[9px] tracking-[0.25em] uppercase text-[#6E6E7A] font-medium mt-0.5">
+                  Subscription
+                </span>
+              </div>
             </Link>
             <p className="mt-4 text-sm text-[#6E6E7A] leading-relaxed max-w-[220px]">
               Premium IPTV UK subscription. 30,000+ live channels, 100,000+ VODs,

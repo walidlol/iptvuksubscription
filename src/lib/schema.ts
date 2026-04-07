@@ -134,7 +134,7 @@ export function buildServiceSchema() {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
-      reviewCount: "2847",
+      reviewCount: "1247",
       bestRating: "5",
       worstRating: "1",
     },
@@ -302,7 +302,7 @@ export const HOMEPAGE_FAQ_ITEMS = [
   {
     question: "How do I subscribe to your IPTV UK service?",
     answer:
-      "Subscribing is simple and takes just a few minutes. Choose your preferred plan (Monthly at £9.99, Annual at £59, or Family at £129.99), then contact us via WhatsApp. We will process your subscription and send you your login credentials and setup instructions. You can be watching live TV within 5 minutes of subscribing.",
+      "Subscribing is simple and takes just a few minutes. Choose your preferred plan (Monthly at £9.99, Annual at £59, or Family at £129.99) — all plans include 30,000+ live channels and our 100,000+ VOD library. Contact us via WhatsApp, and we will process your subscription and send you your login credentials and setup instructions. You can be watching live TV within 5 minutes of subscribing.",
   },
 ] as const;
 

@@ -6,8 +6,8 @@ interface VerifyRequestBody {
   code: string;
 }
 
-// ─── In-memory OTP store (MVP — no external services) ───
-// Maps phone → { code, expiresAt }
+// ─── In-memory OTP store (no external DB needed for MVP) ─────────────────────
+// Maps normalised phone → { code, expiresAt }
 const otpStore = new Map<string, { code: string; expiresAt: number }>();
 
 const OTP_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
@@ -37,8 +37,64 @@ function generateOTP(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-// ─── POST /api/auth/verify ───
-// Step 1: { phone } → generates OTP, returns { code } (MVP: shown on screen)
+/**
+ * Send OTP via WhatsApp Business Cloud API.
+ * Requires env vars:
+ *   WHATSAPP_BUSINESS_TOKEN    — permanent system user token from Meta
+ *   WHATSAPP_PHONE_NUMBER_ID   — phone number ID from Meta WhatsApp Business API
+ *
+ * Returns true on success, false on failure.
+ */
+async function sendWhatsAppOTP(
+  toPhone: string,
+  code: string
+): Promise<boolean> {
+  const token = process.env.WHATSAPP_BUSINESS_TOKEN;
+  const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
+
+  if (!token || !phoneNumberId) {
+    return false; // WhatsApp API not configured → fall back to screen display
+  }
+
+  try {
+    const res = await fetch(
+      `https://graph.facebook.com/v22.0/${phoneNumberId}/messages`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messaging_product: "whatsapp",
+          to: toPhone, // international format, e.g. 447451296412
+          type: "text",
+          text: {
+            body: `Your IPTV UK verification code is: *${code}*\n\nValid for 10 minutes. Do not share this code with anyone.`,
+          },
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      const err = (await res.json().catch(() => ({}))) as Record<
+        string,
+        unknown
+      >;
+      console.error("[WhatsApp OTP] Failed to send:", err);
+      return false;
+    }
+
+    return true;
+  } catch (err) {
+    console.error("[WhatsApp OTP] Network error:", err);
+    return false;
+  }
+}
+
+// ─── POST /api/auth/verify ────────────────────────────────────────────────────
+// Step 1: { phone } → generates OTP, sends via WhatsApp if configured,
+//          otherwise returns { code } for MVP screen display
 // Step 2: { phone, code } → verifies OTP, sets session cookie
 
 export async function POST(request: Request): Promise<NextResponse> {
@@ -69,7 +125,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  // ─── Step 1: Generate OTP (no code provided) ───
+  // ─── Step 1: Generate OTP ────────────────────────────────────────────────
   if (!code) {
     const otp = generateOTP();
     otpStore.set(phone, {
@@ -77,17 +133,30 @@ export async function POST(request: Request): Promise<NextResponse> {
       expiresAt: Date.now() + OTP_EXPIRY_MS,
     });
 
-    // MVP: return the code to display on screen.
-    // In production, send via WhatsApp Business API instead.
+    // Try to send via WhatsApp Business Cloud API
+    const whatsappSent = await sendWhatsAppOTP(phone, otp);
+
+    if (whatsappSent) {
+      // Real WhatsApp delivery — do NOT expose the code
+      return NextResponse.json({
+        success: true,
+        step: "code_sent",
+        whatsapp_sent: true,
+        message: "Verification code sent to your WhatsApp.",
+      });
+    }
+
+    // Fallback: return code for display on screen (MVP mode)
     return NextResponse.json({
       success: true,
       step: "code_generated",
+      whatsapp_sent: false,
       code: otp,
       message: `Send this code to our WhatsApp to verify: ${otp}`,
     });
   }
 
-  // ─── Step 2: Verify OTP ───
+  // ─── Step 2: Verify OTP ──────────────────────────────────────────────────
   if (typeof code !== "string" || code.length !== 6) {
     return NextResponse.json(
       { success: false, error: "Please enter a valid 6-digit code" },
@@ -99,7 +168,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   if (!stored) {
     return NextResponse.json(
-      { success: false, error: "No verification code found. Please request a new one." },
+      {
+        success: false,
+        error: "No verification code found. Please request a new one.",
+      },
       { status: 400 }
     );
   }
@@ -107,7 +179,10 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (Date.now() > stored.expiresAt) {
     otpStore.delete(phone);
     return NextResponse.json(
-      { success: false, error: "Code has expired. Please request a new one." },
+      {
+        success: false,
+        error: "Code has expired. Please request a new one.",
+      },
       { status: 400 }
     );
   }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Clock } from "lucide-react";
 import CinematicShapes from "@/components/ui/CinematicShapes";
 import { BLOG_POSTS, SITE_URL } from "@/data/blogPosts";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "IPTV UK Blog — Guides, Tips & News",
@@ -26,6 +27,20 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <main className="min-h-screen bg-bg-primary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              buildBreadcrumbSchema([
+                { name: "Home", url: SITE_URL },
+                { name: "Blog", url: `${SITE_URL}/blog` },
+              ]),
+            ],
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="bg-cinematic relative overflow-hidden pt-32 pb-14">
         <CinematicShapes subtle />

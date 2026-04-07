@@ -98,10 +98,11 @@ export default function DeviceSection() {
             <motion.div
               key={category.title}
               {...fadeUp(i * 0.1)}
-              className="flex flex-col items-center text-center p-6 rounded-xl border border-border-glass bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.07)] transition-colors"
+              whileHover={{ y: -4 }}
+              className="flex flex-col items-center text-center p-6 rounded-xl border border-border-glass bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.07)] hover:border-[rgba(24,57,73,0.4)] hover:shadow-teal-glow-sm transition-all duration-300"
             >
               {/* Icon */}
-              <div className="mb-4 p-4 rounded-full bg-[rgba(255,255,255,0.04)]">
+              <div className="mb-4 p-4 rounded-full bg-[rgba(24,57,73,0.15)] border border-[rgba(24,57,73,0.25)]">
                 <category.Icon />
               </div>
 

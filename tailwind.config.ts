@@ -26,6 +26,12 @@ const config: Config = {
           muted: "var(--text-muted)",
         },
         accent: "var(--accent)",
+        // Cinematic teal for accents, borders, glows
+        teal: {
+          DEFAULT: "#183949",
+          light: "#1f4d63",
+          glow: "rgba(24,57,73,0.5)",
+        },
         // Red kept only for LIVE badges + error states
         live: "#E8392A",
       },
@@ -50,6 +56,8 @@ const config: Config = {
         glass: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 0 rgba(255,255,255,0.15)",
         "glass-hover": "0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,255,255,0.20)",
         "glass-sm": "0 4px 16px rgba(0,0,0,0.25), inset 0 1px 0 0 rgba(255,255,255,0.10)",
+        "teal-glow": "0 0 40px rgba(24,57,73,0.4), 0 0 80px rgba(24,57,73,0.15)",
+        "teal-glow-sm": "0 0 20px rgba(24,57,73,0.3)",
       },
       backgroundImage: {
         "cinematic":
@@ -79,11 +87,26 @@ const config: Config = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(20px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
       },
       animation: {
         "pulse-live": "pulse-live 1.5s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease forwards",
         shimmer: "shimmer 1.5s infinite linear",
+        "float": "float 4s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "slide-in-right": "slide-in-right 0.4s ease forwards",
       },
     },
   },

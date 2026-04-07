@@ -89,6 +89,28 @@
   .section-deep    { background-color: var(--bg-deep); }
   .section-primary { background-color: var(--bg-primary); }
   .section-surface { background-color: var(--bg-surface); }
+
+  /* Teal gradient divider line */
+  .teal-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(24,57,73,0.6) 30%, rgba(31,77,99,0.4) 70%, transparent);
+  }
+
+  /* Teal ambient section glow */
+  .teal-ambient {
+    position: relative;
+  }
+  .teal-ambient::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(24,57,73,0.5), transparent);
+    pointer-events: none;
+  }
 }
 
 /* ─── Noise Texture Overlay (2% opacity — very subtle film grain) ─── */

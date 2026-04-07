@@ -132,6 +132,9 @@ export default function Home() {
         <LiveSports />
       </Suspense>
 
+      {/* Teal section divider */}
+      <div className="teal-divider" />
+
       {/* 4. CONTENT ROWS — 4 horizontal scroll poster rows (bg-surface) */}
       <section className="bg-bg-surface py-10 space-y-10">
         {CONTENT_ROWS.map((row) => (
@@ -151,11 +154,17 @@ export default function Home() {
         <NewsSection />
       </Suspense>
 
+      {/* Teal section divider */}
+      <div className="teal-divider" />
+
       {/* 6. PRICING — 3 glass plan cards */}
       <PricingCards />
 
       {/* 6. DEVICES — 4 device categories */}
       <DeviceSection />
+
+      {/* Teal section divider */}
+      <div className="teal-divider" />
 
       {/* 7. FAQ — 6 questions, glass accordion + FAQPage schema */}
       <FAQSection />

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import WhatsAppGate from "@/components/ui/WhatsAppGate";
 import CinematicShapes from "@/components/ui/CinematicShapes";
 import { WA_MESSAGES } from "@/lib/wa";
 
@@ -27,24 +27,24 @@ export default function FinalCTA() {
           Start Watching Today
         </h2>
         <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
-          Join over 100,000 UK subscribers streaming 30,000+ live channels
+          Join 3,000+ UK subscribers streaming 30,000+ live channels
           and 100,000+ VODs in 4K quality. Get started in under 5 minutes.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <WhatsAppButton
+          <WhatsAppGate
             message={WA_MESSAGES.getStarted}
             variant="primary"
             size="lg"
           >
             Get Started &mdash; &pound;9.99/mo
-          </WhatsAppButton>
-          <WhatsAppButton
+          </WhatsAppGate>
+          <WhatsAppGate
             message={WA_MESSAGES.freeTrial}
             variant="secondary"
             size="lg"
           >
             Free Trial via WhatsApp
-          </WhatsAppButton>
+          </WhatsAppGate>
         </div>
       </motion.div>
     </section>

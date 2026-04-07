@@ -2,8 +2,8 @@
 
 import { motion, type Easing } from "framer-motion";
 import { Tv, Film, Zap, Shield } from "lucide-react";
-import GlassButton from "@/components/ui/GlassButton";
-import { waLink, WA_MESSAGES } from "@/lib/wa";
+import WhatsAppGate from "@/components/ui/WhatsAppGate";
+import { WA_MESSAGES } from "@/lib/wa";
 
 const TRUST_BADGES = [
   { label: "30,000+ Channels", Icon: Tv },
@@ -48,21 +48,21 @@ export default function HeroClient() {
         animate={buttons.animate}
         className="mt-8 flex flex-col sm:flex-row gap-4"
       >
-        <GlassButton
-          href={waLink(WA_MESSAGES.getStarted)}
+        <WhatsAppGate
+          message={WA_MESSAGES.getStarted}
           variant="primary"
           size="lg"
         >
           Start Watching — £9.99/mo
-        </GlassButton>
+        </WhatsAppGate>
 
-        <GlassButton
-          href={waLink(WA_MESSAGES.freeTrial)}
+        <WhatsAppGate
+          message={WA_MESSAGES.freeTrial}
           variant="secondary"
           size="lg"
         >
           Free Trial via WhatsApp
-        </GlassButton>
+        </WhatsAppGate>
       </motion.div>
 
       {/* Trust Badges */}

@@ -13,7 +13,7 @@ interface Stat {
 const STATS: readonly Stat[] = [
   { label: "Live Channels", value: 30000, suffix: "+" },
   { label: "VODs On Demand", value: 100000, suffix: "+" },
-  { label: "Subscribers", value: 100000, suffix: "+" },
+  { label: "Subscribers", value: 3000, suffix: "+" },
   { label: "Uptime", value: 99.9, suffix: "%", decimals: 1 },
 ] as const;
 
@@ -76,9 +76,11 @@ export default function StatsBar() {
   return (
     <section
       aria-label="Service statistics"
-      className="bg-[var(--bg-surface)] border-y border-[rgba(255,255,255,0.06)]"
+      className="bg-[var(--bg-surface)] border-y border-[rgba(255,255,255,0.06)] relative overflow-hidden"
     >
-      <div className="mx-auto max-w-5xl px-4">
+      {/* Subtle teal glow accent */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[rgba(24,57,73,0.12)] to-transparent pointer-events-none" />
+      <div className="relative mx-auto max-w-5xl px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgba(255,255,255,0.06)]">
           {STATS.map((stat) => (
             <StatItem key={stat.label} stat={stat} />

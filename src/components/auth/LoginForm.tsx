@@ -12,6 +12,7 @@ interface ApiResponse {
   success: boolean;
   step?: string;
   code?: string;
+  whatsapp_sent?: boolean;
   message?: string;
   error?: string;
 }
@@ -48,6 +49,7 @@ export default function LoginForm() {
   const [phone, setPhone] = useState("");
   const [otpDigits, setOtpDigits] = useState(["", "", "", "", "", ""]);
   const [displayCode, setDisplayCode] = useState("");
+  const [whatsappSent, setWhatsappSent] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -81,8 +83,8 @@ export default function LoginForm() {
         return;
       }
 
-      // MVP: API returns the code to display on screen
-      setDisplayCode(data.code ?? "");
+      setWhatsappSent(data.whatsapp_sent ?? false);
+      setDisplayCode(data.code ?? ""); // only set in MVP fallback
       setStep("code");
     } catch {
       setError("Network error. Please try again.");
@@ -213,8 +215,21 @@ export default function LoginForm() {
         </form>
       ) : (
         <div className="space-y-5">
-          {/* MVP: Show the code on screen */}
-          {displayCode && (
+          {/* WhatsApp API mode: code sent to phone */}
+          {whatsappSent && (
+            <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.10)] text-center">
+              <MessageCircle size={20} className="mx-auto mb-2 text-green-400" />
+              <p className="text-sm text-text-secondary">
+                Verification code sent to your WhatsApp.
+              </p>
+              <p className="mt-1 text-xs text-text-muted">
+                Check your WhatsApp messages and enter the 6-digit code below.
+              </p>
+            </div>
+          )}
+
+          {/* MVP fallback: show code on screen */}
+          {!whatsappSent && displayCode && (
             <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.10)] text-center">
               <p className="text-sm text-text-muted mb-2">
                 Send this code to our WhatsApp to verify:
@@ -279,6 +294,7 @@ export default function LoginForm() {
               setStep("phone");
               setOtpDigits(["", "", "", "", "", ""]);
               setDisplayCode("");
+              setWhatsappSent(false);
               setError("");
             }}
             className="w-full text-sm text-text-muted hover:text-text-primary transition-colors text-center"

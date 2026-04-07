@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, X, Bitcoin } from "lucide-react";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import WhatsAppGate from "@/components/ui/WhatsAppGate";
 import CinematicShapes from "@/components/ui/CinematicShapes";
+import CryptoPayButtons from "@/components/pricing/CryptoPayButtons";
 import { buildBreadcrumbSchema, buildOfferSchema } from "@/lib/schema";
 import { WA_MESSAGES } from "@/lib/wa";
 
@@ -77,12 +78,12 @@ interface TableRow {
 const TABLE_ROWS: readonly TableRow[] = [
   { feature: "Price", monthly: "£9.99/mo", annual: "£4.92/mo*", family: "£10.83/mo*" },
   { feature: "Live Channels", monthly: "30,000+", annual: "30,000+", family: "30,000+" },
-  { feature: "VOD Library", monthly: false, annual: "100,000+", family: "100,000+" },
+  { feature: "VOD Library", monthly: "100,000+", annual: "100,000+", family: "100,000+" },
   { feature: "Streaming Quality", monthly: "HD & 4K", annual: "HD & 4K", family: "HD & 4K" },
-  { feature: "Simultaneous Devices", monthly: "1", annual: "2", family: "4" },
+  { feature: "Simultaneous Devices", monthly: "1", annual: "1", family: "4" },
   { feature: "EPG TV Guide", monthly: true, annual: true, family: true },
   { feature: "All UK Sports Channels", monthly: true, annual: true, family: true },
-  { feature: "Sports VODs", monthly: false, annual: true, family: true },
+  { feature: "Sports VODs", monthly: true, annual: true, family: true },
   { feature: "Customer Support", monthly: "24/7", annual: "Priority", family: "VIP" },
   { feature: "Free Trial", monthly: true, annual: true, family: true },
   { feature: "Contract", monthly: "None", annual: "None", family: "None" },
@@ -143,15 +144,14 @@ export default function PricingPage() {
               </div>
               <div className="my-5 h-px bg-border-glass" />
               <ul className="space-y-3 flex-1 text-sm text-text-secondary">
-                {["30,000+ Live Channels","Full HD & 4K Quality","All UK Sports Channels","EPG TV Guide","1 Device","24/7 Support"].map(f => (
+                {["30,000+ Live Channels","Full HD & 4K Quality","All UK Sports Channels","EPG TV Guide","1 Device","24/7 Support","100,000+ VOD Library"].map(f => (
                   <li key={f} className="flex items-center gap-2"><Check size={14} className="text-green-400 shrink-0" />{f}</li>
                 ))}
-                <li className="flex items-center gap-2 opacity-40 line-through"><X size={14} className="shrink-0" />100,000+ VOD Library</li>
               </ul>
               <div className="mt-6 space-y-2">
-                <WhatsAppButton message={WA_MESSAGES.monthly} variant="secondary" size="lg" className="w-full justify-center">
+                <WhatsAppGate message={WA_MESSAGES.monthly} variant="secondary" size="lg" className="w-full justify-center">
                   Subscribe via WhatsApp
-                </WhatsAppButton>
+                </WhatsAppGate>
                 <p className="text-center text-xs text-text-muted">
                   <Link href="#crypto" className="hover:text-text-secondary transition-colors">Pay with Crypto</Link>
                 </p>
@@ -171,14 +171,14 @@ export default function PricingPage() {
               <p className="text-xs text-green-400 mt-1">£4.92/mo — save 51%</p>
               <div className="my-5 h-px bg-border-glass" />
               <ul className="space-y-3 flex-1 text-sm text-text-secondary">
-                {["30,000+ Live Channels","Full HD & 4K Quality","All UK Sports Channels","EPG TV Guide","2 Devices","Priority Support","100,000+ VOD Library"].map(f => (
+                {["30,000+ Live Channels","Full HD & 4K Quality","All UK Sports Channels","EPG TV Guide","1 Device","Priority Support","100,000+ VOD Library"].map(f => (
                   <li key={f} className="flex items-center gap-2"><Check size={14} className="text-green-400 shrink-0" />{f}</li>
                 ))}
               </ul>
               <div className="mt-6 space-y-2">
-                <WhatsAppButton message={WA_MESSAGES.annual} variant="primary" size="lg" className="w-full justify-center">
+                <WhatsAppGate message={WA_MESSAGES.annual} variant="primary" size="lg" className="w-full justify-center">
                   Subscribe via WhatsApp
-                </WhatsAppButton>
+                </WhatsAppGate>
                 <p className="text-center text-xs text-text-muted">
                   <Link href="#crypto" className="hover:text-text-secondary transition-colors">Pay with Crypto</Link>
                 </p>
@@ -200,9 +200,9 @@ export default function PricingPage() {
                 ))}
               </ul>
               <div className="mt-6 space-y-2">
-                <WhatsAppButton message={WA_MESSAGES.family} variant="secondary" size="lg" className="w-full justify-center">
+                <WhatsAppGate message={WA_MESSAGES.family} variant="secondary" size="lg" className="w-full justify-center">
                   Subscribe via WhatsApp
-                </WhatsAppButton>
+                </WhatsAppGate>
                 <p className="text-center text-xs text-text-muted">
                   <Link href="#crypto" className="hover:text-text-secondary transition-colors">Pay with Crypto</Link>
                 </p>
@@ -253,19 +253,17 @@ export default function PricingPage() {
           <h2 className="font-heading text-section-h2 uppercase text-text-primary">
             Pay with Cryptocurrency
           </h2>
-          <p className="mt-4 text-text-secondary leading-relaxed">
-            Prefer privacy and crypto? We accept <strong className="text-text-primary">Bitcoin (BTC)</strong>, <strong className="text-text-primary">USDT</strong>, and <strong className="text-text-primary">Ethereum (ETH)</strong> through our secure NOWPayments integration. Instant activation after confirmation. Contact us on WhatsApp to initiate a crypto payment for any plan.
+          <p className="mt-4 mb-8 text-text-secondary leading-relaxed">
+            Prefer privacy? We accept <strong className="text-text-primary">Bitcoin (BTC)</strong>,{" "}
+            <strong className="text-text-primary">USDT</strong>, and{" "}
+            <strong className="text-text-primary">Ethereum (ETH)</strong> via NOWPayments.
+            Select your plan below — you&apos;ll be taken to a secure hosted checkout.
+            Activation within minutes of confirmation.
           </p>
-          <div className="mt-8">
-            <WhatsAppButton
-              message="Hi, I'd like to pay for my IPTV UK subscription with cryptocurrency."
-              variant="primary"
-              size="lg"
-            >
-              Pay with Crypto via WhatsApp
-            </WhatsAppButton>
-          </div>
-          <p className="mt-4 text-xs text-text-muted">Powered by NOWPayments · BTC · ETH · USDT · LTC</p>
+          <CryptoPayButtons />
+          <p className="mt-6 text-xs text-text-muted">
+            Powered by NOWPayments · BTC · ETH · USDT · LTC · and 300+ coins
+          </p>
         </div>
       </section>
     </main>

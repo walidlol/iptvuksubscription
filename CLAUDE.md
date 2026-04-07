@@ -191,9 +191,12 @@ TMDB_READ_ACCESS_TOKEN=
 FOOTBALL_DATA_API_KEY=
 NEWS_API_KEY=
 NOWPAYMENTS_API_KEY=
+NOWPAYMENTS_IPN_SECRET=
 AUTH_SECRET=
 NEXT_PUBLIC_WHATSAPP_NUMBER=212762151824
 NEXT_PUBLIC_SITE_URL=https://iptvuksubscription.uk
+WHATSAPP_BUSINESS_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
 ```
 
 Generate AUTH_SECRET: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
@@ -282,6 +285,11 @@ src/
 - NewsAPI free tier blocks server-side requests from production (only allows localhost) — always falls back to `FALLBACK_ARTICLES` in prod.
 - `ScrollProgress` uses `useScroll` + `useSpring` from framer-motion — 2px white/40 bar fixed at top z-[100].
 - `@vercel/analytics` added as `<Analytics />` in layout.tsx body — tracks page views automatically on Vercel.
+- NOWPayments crypto integration: `POST /api/payment/create` creates invoice via NOWPayments API, returns `invoiceUrl`. `POST /api/payment/webhook` receives IPN callbacks with HMAC-SHA512 verification.
+- `CryptoPayButtons` client component in `src/components/pricing/` — 3 plan buttons that call `/api/payment/create` and redirect to NOWPayments hosted checkout.
+- Auth route (`api/auth/verify`) supports dual-mode OTP: if `WHATSAPP_BUSINESS_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` are set, sends OTP via WhatsApp Business Cloud API; otherwise falls back to MVP (code shown on screen).
+- `LoginForm` handles `whatsapp_sent` flag — shows "Code sent to your WhatsApp" when API mode active, shows code on screen in MVP fallback.
+- `.env.local` requires `NOWPAYMENTS_IPN_SECRET` for webhook signature verification (from NOWPayments dashboard → Settings → IPN).
 
 ## LEARNED — SEO
 
@@ -294,6 +302,8 @@ src/
 - OG image auto-generated at `/opengraph-image` via `src/app/opengraph-image.tsx` using Next.js ImageResponse (1200×630).
 - Every public page must have: metadata (title, description), canonical, OG (title, description, url, images), Twitter card. Verify after every new page.
 - FAQ page required server/client split to export metadata — `"use client"` pages cannot have `export const metadata`.
+- All public pages now have JSON-LD schema: homepage (@graph with WebSite, Org, Service, FAQ), pricing (BreadcrumbList + 3 Offers), FAQ (BreadcrumbList + FAQPage), blog index (BreadcrumbList), blog/[slug] (BreadcrumbList + BlogPosting), setup-guide (BreadcrumbList + HowTo), contact (BreadcrumbList).
+- `robots.ts` allows GPTBot, ClaudeBot, Google-Extended; blocks `/api/` and `/login`.
 
 ## LEARNED — DESIGN
 

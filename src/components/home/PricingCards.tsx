@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import WhatsAppGate from "@/components/ui/WhatsAppGate";
 import { WA_MESSAGES } from "@/lib/wa";
 
 interface PlanFeature {
@@ -33,7 +33,7 @@ const PLANS: readonly Plan[] = [
       { text: "EPG TV Guide", included: true },
       { text: "1 Device Connection", included: true },
       { text: "24/7 Support", included: true },
-      { text: "100,000+ VOD Library", included: false },
+      { text: "100,000+ VOD Library", included: true },
     ],
     waMessage: WA_MESSAGES.monthly,
   },
@@ -48,7 +48,7 @@ const PLANS: readonly Plan[] = [
       { text: "Full HD & 4K Quality", included: true },
       { text: "All UK Sports Channels", included: true },
       { text: "EPG TV Guide", included: true },
-      { text: "2 Device Connections", included: true },
+      { text: "1 Device Connection", included: true },
       { text: "24/7 Priority Support", included: true },
       { text: "100,000+ VOD Library", included: true },
     ],
@@ -109,8 +109,12 @@ const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 export default function PricingCards() {
   return (
-    <section id="pricing" className="bg-bg-surface py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="bg-bg-surface py-16 sm:py-24 relative overflow-hidden">
+      {/* Teal ambient orbs */}
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[rgba(24,57,73,0.08)] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-[rgba(24,57,73,0.06)] blur-[100px] pointer-events-none" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -140,7 +144,7 @@ export default function PricingCards() {
               whileHover={{ y: -8 }}
               className={`relative flex flex-col rounded-xl border p-6 lg:p-8 transition-shadow ${
                 plan.popular
-                  ? "border-live bg-[rgba(255,255,255,0.08)] shadow-glass-hover scale-[1.02]"
+                  ? "border-[rgba(24,57,73,0.6)] bg-[rgba(255,255,255,0.08)] shadow-glass-hover shadow-teal-glow-sm scale-[1.02]"
                   : "border-border-glass bg-[rgba(255,255,255,0.04)]"
               }`}
             >
@@ -189,14 +193,14 @@ export default function PricingCards() {
 
               {/* CTA */}
               <div className="mt-8 space-y-3">
-                <WhatsAppButton
+                <WhatsAppGate
                   message={plan.waMessage}
                   variant={plan.popular ? "primary" : "secondary"}
                   size="lg"
                   className="w-full justify-center"
                 >
                   Subscribe via WhatsApp
-                </WhatsAppButton>
+                </WhatsAppGate>
                 <p className="text-center">
                   <a
                     href="/pricing#crypto"

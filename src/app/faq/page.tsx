@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import FAQContent, { FAQ_ITEMS } from "./FAQContent";
+import FAQContent from "./FAQContent";
+import { FAQ_ITEMS } from "./faqData";
 
 const SITE_URL = "https://iptvuksubscription.uk";
 

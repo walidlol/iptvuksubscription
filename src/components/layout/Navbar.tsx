@@ -43,26 +43,30 @@ export default function Navbar() {
           "backdrop-blur-glass",
           "border-b border-[rgba(255,255,255,0.08)]",
           "transition-shadow duration-300",
-          scrolled ? "shadow-[0_4px_24px_rgba(0,0,0,0.4)]" : "",
+          scrolled ? "shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b-[rgba(24,57,73,0.3)]" : "",
         ].join(" ")}
       >
         <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
 
-          {/* ── Logo ── */}
+          {/* ── Logo (stacked) ── */}
           <Link
             href="/"
             className="flex items-center gap-2.5 group shrink-0"
             aria-label="IPTV UK Subscription — Home"
           >
-            {/* Styled logo mark — replace inner span with <Image> when icon.png is ready */}
             <div className="h-8 w-8 rounded-full bg-[rgba(255,255,255,0.12)] border border-[rgba(255,255,255,0.20)] flex items-center justify-center">
               <span className="font-heading text-xs text-white leading-none select-none">
                 UK
               </span>
             </div>
-            <span className="font-heading text-lg tracking-widest text-[#F2F2F7] group-hover:text-white transition-colors">
-              IPTV UK
-            </span>
+            <div className="flex flex-col leading-none">
+              <span className="font-heading text-lg tracking-widest text-[#F2F2F7] group-hover:text-white transition-colors">
+                IPTV UK
+              </span>
+              <span className="text-[9px] tracking-[0.25em] uppercase text-[#6E6E7A] font-medium mt-0.5">
+                Subscription
+              </span>
+            </div>
           </Link>
 
           {/* ── Desktop Nav Links ── */}
@@ -78,10 +82,13 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* ── Desktop CTA ── */}
-          <div className="hidden md:block shrink-0">
+          {/* ── Desktop CTAs ── */}
+          <div className="hidden md:flex items-center gap-3 shrink-0">
+            <GlassButton href="/pricing" variant="ghost" size="sm">
+              Try for 24h
+            </GlassButton>
             <GlassButton href="/pricing" variant="primary" size="sm">
-              Get IPTV UK
+              Subscribe Now
             </GlassButton>
           </div>
 
@@ -158,10 +165,13 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              {/* Mobile CTA */}
-              <div className="mt-6">
+              {/* Mobile CTAs */}
+              <div className="mt-6 flex flex-col gap-3">
+                <GlassButton href="/pricing" variant="ghost" size="md" className="w-full justify-center">
+                  Try for 24h
+                </GlassButton>
                 <GlassButton href="/pricing" variant="primary" size="md" className="w-full justify-center">
-                  Get IPTV UK
+                  Subscribe Now
                 </GlassButton>
               </div>
             </motion.aside>
